@@ -8,6 +8,7 @@ Created on Thu Apr  4 18:07:01 2024
 import os
 from parsepsnexheader import parsePSNEXheader, parsePSNEXsegmentheader
 from nptdms import TdmsFile
+from pyfmreader.uff import UFF
 
 def loadPSNEXfile(filepath, UFF):
     """
@@ -46,8 +47,15 @@ def loadPSNEXfile(filepath, UFF):
         curve_properties = parsePSNEXsegmentheader(filepath,curve_properties, segment_id,curve_id )
 
     UFF.filemetadata['curve_properties'] = curve_properties
+    UFF.filemetadata['isFV'] = False
+    UFF.filemetadata['file_type'] = 'PSNEX.tdms'
 
     return UFF
-
+def load_psnex_UFF(file_path):
+    print("created UFF PSNEX fiel ")
+    uffobj = UFF()
+    uffobj = loadPSNEXfile(file_path, uffobj)
+    
+    return(uffobj)    
 
     
